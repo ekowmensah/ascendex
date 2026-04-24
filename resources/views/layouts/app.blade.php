@@ -32,12 +32,32 @@
                 </nav>
             @else
                 <nav class="flex items-center gap-2 text-sm">
+                    <a class="rounded-lg px-3 py-1.5 hover:bg-slate-800" href="{{ route('landing') }}">Homepage</a>
                     <a class="rounded-lg px-3 py-1.5 hover:bg-slate-800" href="{{ route('login') }}">Login</a>
                     <a class="rounded-lg bg-cyan-600 px-3 py-1.5 hover:bg-cyan-500" href="{{ route('register.form') }}">Register</a>
                 </nav>
             @endauth
         </div>
     </header>
+
+    @auth
+        @if(auth()->user()->isAdmin() && !request()->routeIs('admin.*'))
+            <section class="mb-4 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 backdrop-blur">
+                <div class="mb-2 flex items-center justify-between gap-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-cyan-300">Admin Menu</p>
+                    <span class="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-2 py-0.5 text-[11px] text-cyan-200">Admin</span>
+                </div>
+                <nav class="grid gap-2 sm:grid-cols-3 lg:grid-cols-6">
+                    <a href="{{ route('admin.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Overview</a>
+                    <a href="{{ route('admin.users.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Users</a>
+                    <a href="{{ route('admin.deposits.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Deposits</a>
+                    <a href="{{ route('admin.withdrawals.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Withdrawals</a>
+                    <a href="{{ route('admin.trades.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Trades</a>
+                    <a href="{{ route('admin.settings.index') }}" class="rounded-lg border border-slate-700 px-3 py-2 text-center text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-200">Settings</a>
+                </nav>
+            </section>
+        @endif
+    @endauth
 
     @if (session('status'))
         <div class="mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">

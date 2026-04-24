@@ -16,6 +16,10 @@
                 Remember me
             </label>
             <button class="w-full rounded-lg bg-cyan-600 px-4 py-2 font-medium hover:bg-cyan-500">Sign In</button>
+            <div class="flex flex-wrap items-center justify-between gap-2 text-sm">
+                <a href="{{ route('landing') }}" class="rounded-lg border border-slate-700 px-3 py-1.5 text-slate-300 hover:border-cyan-500/60 hover:text-cyan-200">Homepage</a>
+                <a href="{{ route('register.form') }}" class="text-cyan-300 hover:text-cyan-200">Create account</a>
+            </div>
         </form>
     </div>
 </x-layouts.app>

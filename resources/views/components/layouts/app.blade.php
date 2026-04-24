@@ -43,12 +43,32 @@
                 </div>
             @else
                 <nav class="flex items-center gap-2 text-sm">
+                    <a class="pill-link" href="{{ route('landing') }}">Homepage</a>
                     <a class="pill-link" href="{{ route('login') }}">Login</a>
                     <a class="btn-primary" href="{{ route('register.form') }}">Register</a>
                 </nav>
             @endauth
         </div>
     </header>
+
+    @auth
+        @if(auth()->user()->isAdmin() && !request()->routeIs('admin.*'))
+            <section class="glass-panel mb-4">
+                <div class="mb-2 flex items-center justify-between gap-2">
+                    <p class="text-xs uppercase tracking-[0.2em] text-cyan-300">Admin Menu</p>
+                    <span class="rounded-full border border-cyan-400/40 bg-cyan-500/10 px-2 py-0.5 text-[11px] text-cyan-200">Admin</span>
+                </div>
+                <nav class="grid gap-2 sm:grid-cols-3 lg:grid-cols-6">
+                    <a href="{{ route('admin.index') }}" class="pill-link text-center">Overview</a>
+                    <a href="{{ route('admin.users.index') }}" class="pill-link text-center">Users</a>
+                    <a href="{{ route('admin.deposits.index') }}" class="pill-link text-center">Deposits</a>
+                    <a href="{{ route('admin.withdrawals.index') }}" class="pill-link text-center">Withdrawals</a>
+                    <a href="{{ route('admin.trades.index') }}" class="pill-link text-center">Trades</a>
+                    <a href="{{ route('admin.settings.index') }}" class="pill-link text-center">Settings</a>
+                </nav>
+            </section>
+        @endif
+    @endauth
 
     @if (session('status'))
         <div class="mb-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
@@ -71,7 +91,7 @@
     </main>
 
     @auth
-        <nav class="mobile-nav-dock md:hidden" aria-label="Mobile navigation">
+        <nav class="mobile-nav-dock {{ auth()->user()->isAdmin() ? 'mobile-nav-dock-admin' : '' }} md:hidden" aria-label="Mobile navigation">
             <a href="{{ route('dashboard') }}" class="mobile-nav-link {{ request()->routeIs('dashboard') ? 'mobile-nav-link-active' : '' }}" title="Dashboard">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-10.5Z"/></svg>
                 <span>Home</span>
@@ -92,6 +112,12 @@
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21V9"/><path stroke-linecap="round" stroke-linejoin="round" d="m17 14-5-5-5 5"/><rect x="3" y="3" width="18" height="3" rx="1"/></svg>
                 <span>Withdraw</span>
             </a>
+            @if(auth()->user()->isAdmin())
+                <a href="{{ route('admin.index') }}" class="mobile-nav-link {{ request()->routeIs('admin.*') ? 'mobile-nav-link-active' : '' }}" title="Admin">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" class="h-5 w-5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3 4 7v5c0 5.25 3.4 9.7 8 11 4.6-1.3 8-5.75 8-11V7l-8-4Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M9.5 12.5 11 14l3.5-3.5"/></svg>
+                    <span>Admin</span>
+                </a>
+            @endif
         </nav>
     @endauth
 </div>

@@ -246,6 +246,11 @@
         z-index: 60;
     }
 
+    .mobile-nav-dock-admin {
+        width: min(98vw, 36rem);
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
     .mobile-nav-link {
         display: inline-flex;
         flex-direction: column;

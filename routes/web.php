@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepositController;
+use App\Http\Controllers\LandingController;
 use App\Http\Controllers\TradeController;
 use App\Http\Controllers\WalletController;
 use App\Http\Controllers\WithdrawalController;
@@ -42,7 +43,7 @@ Route::any('/ascendex/{path?}', function (Request $request, ?string $path = null
     return redirect()->to($target, 307);
 })->where('path', '.*');
 
-Route::get('/', fn () => redirect()->route('dashboard'));
+Route::get('/', LandingController::class)->name('landing');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register.form');

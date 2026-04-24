@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\CurrencyConversionService;
+use App\Services\MarketRatesService;
 use App\Services\PriceFeedService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -28,6 +30,20 @@ class PriceApiController extends Controller
             'age_label' => $status['age_label'],
             'is_fresh' => $status['is_fresh'],
             'max_age_seconds' => $status['max_age_seconds'],
+        ]);
+    }
+
+    public function marketRates(
+        MarketRatesService $marketRatesService,
+        CurrencyConversionService $currencyConversionService
+    ): JsonResponse {
+        $ghsPerUsdt = (float) $currencyConversionService->getGhsPerUsdt();
+
+        return response()->json([
+            'rows' => $marketRatesService->snapshot($ghsPerUsdt),
+            'symbols' => $marketRatesService->symbols(),
+            'ghs_per_usdt' => $ghsPerUsdt,
+            'updated_at' => now()->toIso8601String(),
         ]);
     }
 }

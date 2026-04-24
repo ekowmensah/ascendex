@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@theme {
+    --font-sans: 'Space Grotesk', 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-ink: #020617;
+    --color-night: #0b1220;
+    --color-steel: #1e293b;
+    --color-frost: #cbd5e1;
+    --color-cyan: #22d3ee;
+    --color-lime: #22c55e;
+    --color-rose: #fb7185;
+}
+
+@layer base {
+    body {
+        background:
+            radial-gradient(1200px 500px at 10% -20%, rgba(34, 211, 238, 0.2), transparent),
+            radial-gradient(1000px 500px at 90% -30%, rgba(168, 85, 247, 0.18), transparent),
+            linear-gradient(160deg, #020617 0%, #07101f 60%, #020617 100%);
+        overflow-x: hidden;
+    }
+}
+
+@keyframes panelIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.995);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes priceUp {
+    0% {
+        color: #22d3ee;
+        text-shadow: 0 0 0 rgba(34, 211, 238, 0);
+    }
+    50% {
+        color: #4ade80;
+        text-shadow: 0 0 16px rgba(74, 222, 128, 0.45);
+    }
+    100% {
+        color: #22d3ee;
+        text-shadow: 0 0 0 rgba(34, 211, 238, 0);
+    }
+}
+
+@keyframes priceDown {
+    0% {
+        color: #22d3ee;
+        text-shadow: 0 0 0 rgba(34, 211, 238, 0);
+    }
+    50% {
+        color: #fb7185;
+        text-shadow: 0 0 16px rgba(251, 113, 133, 0.45);
+    }
+    100% {
+        color: #22d3ee;
+        text-shadow: 0 0 0 rgba(34, 211, 238, 0);
+    }
+}
+
+@layer components {
+    .app-shell {
+        @apply mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8;
+    }
+
+    .glass-panel {
+        @apply min-w-0 rounded-2xl border border-slate-700/60 bg-slate-900/65 p-4 shadow-2xl shadow-cyan-950/30 backdrop-blur;
+        animation: panelIn 0.45s ease-out both;
+    }
+
+    .card-muted {
+        @apply rounded-xl border border-slate-800/80 bg-slate-950/70 p-3;
+    }
+
+    .pill-link {
+        @apply rounded-full border border-slate-700/70 px-3 py-1.5 text-xs font-medium text-slate-200 transition hover:border-cyan-500/60 hover:bg-cyan-500/10 hover:text-cyan-200;
+    }
+
+    .btn-primary {
+        @apply rounded-xl bg-cyan-500 px-4 py-2 font-semibold text-slate-900 transition hover:bg-cyan-400;
+    }
+
+    .btn-up {
+        @apply rounded-xl bg-lime-500 px-4 py-2 font-semibold text-slate-950 transition hover:bg-lime-400;
+    }
+
+    .btn-down {
+        @apply rounded-xl bg-rose-500 px-4 py-2 font-semibold text-slate-950 transition hover:bg-rose-400;
+    }
+
+    .btn-primary,
+    .btn-up,
+    .btn-down,
+    .pill-link {
+        @apply duration-200;
+    }
+
+    .btn-primary:hover,
+    .btn-up:hover,
+    .btn-down:hover,
+    .pill-link:hover {
+        transform: translateY(-1px);
+    }
+
+    .input-dark {
+        @apply w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-100 outline-none ring-0 transition focus:border-cyan-500;
+    }
+
+    .table-dark {
+        @apply min-w-full text-left text-sm text-slate-200;
+    }
+
+    .table-dark th {
+        @apply px-3 py-2 text-xs uppercase tracking-wide text-slate-400;
+    }
+
+    .table-dark td {
+        @apply px-3 py-2;
+    }
+
+    .table-dark tbody tr {
+        @apply border-t border-slate-800/80;
+    }
+
+    .table-dark tbody tr:hover {
+        @apply bg-slate-800/35;
+    }
+
+    .price-tick-up {
+        animation: priceUp 0.45s ease-out;
+    }
+
+    .price-tick-down {
+        animation: priceDown 0.45s ease-out;
+    }
+
+    .floating-ticket-fab {
+        @apply fixed right-5 z-40 rounded-full border border-cyan-300/50 bg-cyan-500/20 px-4 py-2 text-sm font-semibold text-cyan-200 shadow-lg shadow-cyan-900/40 backdrop-blur;
+        bottom: max(1.25rem, env(safe-area-inset-bottom));
+    }
+
+    .floating-ticket-panel {
+        @apply fixed bottom-20 right-5 z-40 w-[min(92vw,19rem)] rounded-2xl border border-slate-700/70 bg-slate-900/90 p-3 shadow-2xl shadow-cyan-950/40 backdrop-blur;
+        animation: panelIn 0.28s ease-out both;
+    }
+
+    .floating-ticket-panel.is-hidden {
+        @apply hidden;
+    }
+
+    .position-sparkline {
+        @apply h-10 w-full;
+    }
+
+    .position-sparkline-empty {
+        @apply h-10 text-xs text-slate-500;
+        display: grid;
+        place-items: center;
+    }
+
+    .trade-modal-backdrop {
+        @apply fixed inset-0 z-50 bg-slate-950/65 px-3 pt-4 backdrop-blur-sm;
+        padding-bottom: max(4.75rem, calc(env(safe-area-inset-bottom) + 4rem));
+        display: grid;
+        place-items: center;
+    }
+
+    .trade-modal-panel {
+        @apply w-full max-w-md rounded-2xl border border-slate-700/70 bg-slate-900/95 p-4 shadow-2xl shadow-cyan-950/40;
+        max-height: calc(100dvh - 5rem);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        animation: panelIn 0.2s ease-out both;
+    }
+
+    .mobile-nav-dock {
+        position: fixed;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: max(0.65rem, env(safe-area-inset-bottom));
+        width: min(96vw, 30rem);
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0.35rem;
+        padding: 0.45rem;
+        border: 1px solid rgba(51, 65, 85, 0.9);
+        border-radius: 1rem;
+        background: rgba(2, 6, 23, 0.92);
+        box-shadow: 0 18px 42px rgba(2, 6, 23, 0.55);
+        backdrop-filter: blur(10px);
+        z-index: 60;
+    }
+
+    .mobile-nav-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.18rem;
+        min-height: 2.9rem;
+        border-radius: 0.8rem;
+        color: #94a3b8;
+        font-size: 0.62rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        transition: all 180ms ease;
+    }
+
+    .mobile-nav-link-active {
+        color: #67e8f9;
+        background: rgba(6, 182, 212, 0.14);
+        border: 1px solid rgba(34, 211, 238, 0.42);
+    }
+
+    .mobile-nav-link-trade {
+        border-radius: 999px;
+        border: 1px solid rgba(34, 211, 238, 0.55);
+        background: linear-gradient(180deg, rgba(6, 182, 212, 0.28) 0%, rgba(8, 47, 73, 0.42) 100%);
+        color: #67e8f9;
+        transform: translateY(-0.4rem);
+        box-shadow: 0 10px 24px rgba(8, 47, 73, 0.5);
+    }
+
+    .mobile-nav-link-trade.mobile-nav-link-active {
+        border-color: rgba(103, 232, 249, 0.85);
+        background: linear-gradient(180deg, rgba(34, 211, 238, 0.34) 0%, rgba(14, 116, 144, 0.45) 100%);
+        color: #e0f2fe;
+    }
+
+    .trade-desktop-only,
+    .trade-desktop-ticket-actions {
+        display: none;
+    }
+
+    .trade-mobile-chart-actions {
+        display: block;
+    }
+
+    @media (min-width: 768px) {
+        .trade-modal-backdrop {
+            place-items: center;
+            @apply p-6;
+        }
+
+        .trade-modal-panel {
+            max-height: calc(100dvh - 3rem);
+        }
+
+        .trade-desktop-only {
+            display: inline-flex;
+        }
+
+        .trade-desktop-ticket-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.5rem;
+        }
+
+        .trade-mobile-chart-actions {
+            display: none;
+        }
+    }
+}

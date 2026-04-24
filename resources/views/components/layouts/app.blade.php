@@ -13,7 +13,7 @@
         <div class="mb-3 flex items-center justify-between md:mb-4">
             <a href="{{ route('dashboard') }}" class="inline-flex items-center gap-2">
                 <span class="rounded-lg bg-cyan-400/20 px-2 py-1 text-[11px] font-bold tracking-[0.2em] text-cyan-200">AEX</span>
-                <span class="text-base font-semibold tracking-wide sm:text-lg">AscendEX Binary</span>
+                <span class="text-base font-semibold tracking-wide sm:text-lg">Trans Market Group</span>
             </a>
             <span class="hidden rounded-full border border-slate-700/80 bg-slate-950/70 px-3 py-1 text-xs text-slate-300 sm:inline-flex">Crypto Options Desk</span>
         </div>

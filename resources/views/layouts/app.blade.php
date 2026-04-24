@@ -11,7 +11,7 @@
 <div class="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
     <header class="mb-6 rounded-2xl border border-slate-800 bg-slate-900/80 p-4 backdrop-blur">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-wide">AscendEX Binary</a>
+            <a href="{{ route('dashboard') }}" class="text-lg font-semibold tracking-wide">Trans Market Group</a>
             @auth
                 <nav class="flex flex-wrap items-center gap-2 text-sm">
                     <a class="rounded-lg px-3 py-1.5 hover:bg-slate-800" href="{{ route('dashboard') }}">Dashboard</a>
